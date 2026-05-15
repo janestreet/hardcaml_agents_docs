@@ -1,0 +1,5 @@
+(library
+ (name hardcaml_agents_docs)
+ (public_name hardcaml_agents_docs)
+ (preprocess
+  (pps ppx_jane -compare-require-explicit-locality)))
