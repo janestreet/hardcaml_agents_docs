@@ -16,6 +16,9 @@ depends: [
   "dune"     {>= "3.17.0"}
 ]
 available: arch != "x86_32"
+conflicts: [
+  "oxcaml-compiler" {< "5.2.0minus39"}
+]
 synopsis: "Hardcaml Agents Docs"
 description: "
 Hardcaml Agents Docs provides AI tooling context bundles that can be used to increase the quality of AI-produced Hardcaml code.

@@ -327,19 +327,23 @@ context. They name the signal with the OCaml variable name automatically.
 let%hw my_signal = some_expression in
 let%hw_list my_signal_list = some_list_expression in
 let%hw_array my_signal_array = some_array_expression in
+let%hw_option my_signal_option = some_option_expression in
 
 (* For Always.Variable.t *)
 let%hw_var my_always_var = Always.Variable.reg spec ~width:8 in
 let%hw_var_list my_always_var_list = some_list_of_always_vars in
 let%hw_var_array my_always_var_array = some_array_of_always_vars in
+let%hw_var_option my_always_var_option = some_option_always_var in
 
 (* For Signal.t Foo.t (interface records) *)
 let%hw.Foo.Of_signal my_foo = some_interface_expression in
 let%hw_array.Foo.Of_signal my_foo_array = some_array_of_interfaces in
+let%hw_option.Foo.Of_signal my_foo_option = some_option_interface in
 
 (* For Always.Variable.t Foo.t (interface records of always variables) *)
 let%hw.Foo.Of_always my_foo_always = some_always_interface_expression in
 let%hw_array.Foo.Of_always my_foo_always_array = some_array_of_always_interfaces in
+let%hw_option.Foo.Of_always my_foo_always_option = some_option_always_interface in
 
 (* For Always.State_machine *)
 let%hw.Always.State_machine sm = Always.State_machine.create (module State) spec in
