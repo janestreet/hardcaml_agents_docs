@@ -12,8 +12,7 @@ build: [
 ]
 depends: [
   "ocaml" {>= "5.1.0"}
-  "ppx_jane"
-  "dune"     {>= "3.17.0"}
+  "dune" {>= "3.17.0"}
 ]
 available: arch != "x86_32"
 synopsis: "Hardcaml Agents Docs"

@@ -246,6 +246,13 @@ Lws_runtime.poll_task lws task;
 
 # Cyclesim Simulations
 
+For the Verilator backend, reset completes the old foreign model and creates a new
+one. Do not retain foreign memory views across reset: reacquire them for the new
+model and keep model-specific state inside its factory. This is not a blanket
+invalidation rule for ordinary input/output port refs. Before accepting simulator
+reuse, stress repeated checkout/reset cycles as well as a single run.
+
+
 Various tests in the tree uses the `Hardcaml_test_harness.Cyclesim_harness` for cyclesim
 simulations that interacts directly with input and output ports of the simulator.
 
@@ -355,6 +362,11 @@ Key points:
   them.
 
 # Instantiations Expect Tests
+
+Js-board port-remapping tests need a non-identity case. Its `map_index` deliberately
+returns the input index in `Simulation` mode, so ordinary simulation cannot validate
+the mapping direction. Check `Synthesis` elaboration or a pure mapping test as well.
+
 
 Hardcaml simulations are sometimes functorized over a config. You need to instantiate the
 tests over specific configurations, as follows:

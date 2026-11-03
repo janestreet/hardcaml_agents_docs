@@ -185,9 +185,10 @@ Always.(compile [
 ])
 ```
 
-When writing a multiplexer in the event that you have a small number of concreate cases and everything
-else uses a default cases, make use of the `val Signal.case : default: t -> (t * t) list -> t` function.
-This is akin a match statement in Ocaml with a default case.
+For a small set of selector values with a default, use
+`Signal.cases ~default selector [(match_value, result); ...]`. The function is
+`cases`, plural, and takes an explicit selector. For boolean-priority choices, use
+`priority_select_with_default` as shown below.
 
 To index a specific bit in a Signal.t instance, use the `val .:() : t -> int -> t` operator.
 
@@ -506,6 +507,12 @@ The `~scope` argument is threaded through so that signal names and circuit datab
 properly maintained. By default, the instantiation will be hierarchical when
 `flatten_design` is false and inlined otherwise.
 
+For Cyclesim, elaborate ordinary child circuits with `flatten_design` enabled. A
+retained instance needs a matching supported model in the configured combinational
+operations database; otherwise Cyclesim raises `Instantiation not supported in
+simulation`. Keep simulation elaboration separate from hierarchical RTL generation,
+and do not flatten a deliberately modeled primitive blindly.
+
 # with_valid and priority selection
 
 The `with_valid` type is used throughout Hardcaml for handshake-style signals:
@@ -541,6 +548,12 @@ let%hw combined = upper @: lower in
 (* Split into parts of given width, lsb-first *)
 let parts = split_lsb ~part_width:8 wide_signal in
 ```
+
+# Resizing
+
+Prefer `uextend`/`sextend` for widening and `sel_bottom` for narrowing over
+`uresize`/`sresize`. If `uresize`/`sresize` must be used, leave a short comment justifying
+the reason.
 
 # Interface Of_signal and Of_always operations
 
